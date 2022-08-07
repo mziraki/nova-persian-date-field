@@ -1,0 +1,47 @@
+{
+    "name": "mziraki/nova-persian-date-field",
+    "description": "Laravel Nova Jalali/Persian Date/DateTime field.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "date",
+        "datetime",
+        "field",
+        "jalali",
+        "persian"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mahdi Ziraki",
+            "email": "m.zirakit@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/nova": "^4.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MZiraki\\PersianDateField\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MZiraki\\PersianDateField\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
