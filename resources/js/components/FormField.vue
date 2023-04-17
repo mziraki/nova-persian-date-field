@@ -1,5 +1,10 @@
 <template>
-    <DefaultField :field="field" :errors="errors" :show-help-text="showHelpText">
+    <DefaultField
+        :field="currentField"
+        :errors="errors"
+        :show-help-text="showHelpText"
+        :full-width-content="fullWidthContent"
+    >
         <template #field>
             <div class="flex">
                 <date-picker
@@ -7,7 +12,7 @@
                     :clearable="true"
                     :color="color"
                     :format="format"
-                    :id="field.attribute"
+                    :id="currentField.uniqueKey"
                     :initial-value="fieldValue"
                     :input-attrs="{ style: 'direction: ltr; text-align: end;' }"
                     inputClass="w-full form-control form-input form-input-bordered"
@@ -34,7 +39,7 @@
 
 <script>
 import Vue3PersianDatetimePicker from 'vue3-persian-datetime-picker'
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import {DependentFormField, HandlesValidationErrors} from 'laravel-nova'
 import jMoment from 'moment-jalaali'
 
 export default {
@@ -42,7 +47,7 @@ export default {
         DatePicker: Vue3PersianDatetimePicker,
     },
 
-    mixins: [FormField, HandlesValidationErrors],
+    mixins: [DependentFormField, HandlesValidationErrors],
 
     props: ['resourceName', 'resourceId', 'field'],
 
@@ -52,29 +57,29 @@ export default {
         },
 
         color() {
-            return this.field.color || 'rgb(30, 136, 229)'
+            return this.currentField.color || 'rgb(30, 136, 229)'
         },
 
         fieldValue() {
-            return this.field.value ? jMoment(this.field.value).format(this.format) : ''
+            return this.currentField.value ? jMoment(this.currentField.value).format(this.format) : ''
         },
 
         format() {
-            return this.field.format || 'jYYYY/jMM/jDD'
+            return this.currentField.format || 'jYYYY/jMM/jDD'
         },
 
         locale() {
-            return this.field.locale || 'fa,en'
+            return this.currentField.locale || 'fa,en'
         },
 
         placeholder() {
-            return this.field.placeholder || jMoment().format(this.format)
+            return this.currentField.placeholder || jMoment().format(this.format)
         },
     },
 
     methods: {
         fill(formData) {
-            formData.append(this.field.attribute, this.altDateValue || '')
+            this.fillIfVisible(formData, this.field.attribute, this.altDateValue || '')
         },
 
         setInitialValue() {

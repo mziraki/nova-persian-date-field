@@ -5,10 +5,12 @@ namespace MZiraki\PersianDateField;
 use DateTimeInterface;
 use Exception;
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\SupportsDependentFields;
 
 class PersianDateTime extends Field
 {
     use HasOptions;
+    use SupportsDependentFields;
 
     public $component = 'persian-date-time';
 
